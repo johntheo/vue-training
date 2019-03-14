@@ -16,6 +16,7 @@
         </div>
         <div v-if="state ==='edit'" class="add-item-form">
             <input v-model="newItem" type="text" placeholder="Add and item" @keyup.enter="saveItem">
+            <p>{{characterCount}}/200</p>
             <button class="btn btn-primary" :disabled="newItem.length === 0" @click="saveItem">Save Item</button><!--v-bind shortcut is : -->
         </div>
         <ul>
@@ -48,6 +49,11 @@
                         highPriority: false,
                     },
                 ]
+            },
+            computed: {
+                characterCount() {
+                    return this.newItem.length;
+                }
             },
             methods: {
                 saveItem: function () {
