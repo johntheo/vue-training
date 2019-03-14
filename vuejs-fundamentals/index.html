@@ -20,7 +20,7 @@
             <button class="btn btn-primary" :disabled="newItem.length === 0" @click="saveItem">Save Item</button><!--v-bind shortcut is : -->
         </div>
         <ul>
-            <li v-for="item in items" :class="{strikeout: item.purchased}" @click="togglePurchased(item)">{{item.label}}</li>
+            <li v-for="item in reversedItems" :class="{strikeout: item.purchased}" @click="togglePurchased(item)">{{item.label}}</li>
         </ul>
         <p v-if="items.length === 0">Nice job! You bought all your items!</p>
     </div>
@@ -53,6 +53,10 @@
             computed: {
                 characterCount() {
                     return this.newItem.length;
+                },
+                reversedItems() {
+                    // slice(0) to copy the array and dont change his state. Compute are only for presentation layer
+                    return this.items.slice(0).reverse(); 
                 }
             },
             methods: {
