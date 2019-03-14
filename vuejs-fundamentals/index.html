@@ -19,7 +19,7 @@
             <button class="btn btn-primary" :disabled="newItem.length === 0" @click="saveItem">Save Item</button><!--v-bind shortcut is : -->
         </div>
         <ul>
-            <li v-for="item in items" :class="[item.purchased ? 'strikeout' : '', item.highPriority? 'priority' : '']">{{item.label}}</li>
+            <li v-for="item in items" :class="{strikeout: item.purchased}" @click="togglePurchased(item)">{{item.label}}</li>
         </ul>
         <p v-if="items.length === 0">Nice job! You bought all your items!</p>
     </div>
@@ -45,7 +45,7 @@
                     {
                         label: '20 cups',
                         purchased: false,
-                        highPriority: true,
+                        highPriority: false,
                     },
                 ]
             },
@@ -60,6 +60,9 @@
                 changeState: function(newState){
                     this.state = newState;
                     this.newItem = '';
+                },
+                togglePurchased: function(item){
+                    item.purchased = !item.purchased;
                 }
             }
         });
